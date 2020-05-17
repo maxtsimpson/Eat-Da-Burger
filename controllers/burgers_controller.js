@@ -1,5 +1,6 @@
-const Burger = require("../models/burger")
-const burger = new Burger()
+var express = require("express");
+
+var router = express.Router();
 
 // *********************************************************************************
 // api-routes.js - this file offers a set of routes for displaying and saving data to the db
@@ -9,22 +10,24 @@ const burger = new Burger()
 // =============================================================
 
 // Get all burgers
-app.get("/api/all", function (req, res) {
+router.get("/", function (req, res) {
 
     //find all burgers and return as json
-    burger.selectAll().then((results) => {
-        // results are available to us inside the .then
-        res.body(results);
+    burger.selectAll().then((burgers) => {
+        //burgers is an array of burger objects
+        console.log("finished select all")
+        console.log(burgers)
+        res.render("index", { burgers });
     }).catch((error) => {
         res.status(500);
-        res.body(error)
+        res.json(error)
         res.end();
     });
 
 });
 
 // Add a burger
-app.post("/api/new", (req, res) => {
+router.post("/api/burgers", (req, res) => {
 
     //add a burger and return added as json
     console.log("burger Data:");
@@ -32,13 +35,13 @@ app.post("/api/new", (req, res) => {
 
     if (typeof req.body.burger_name !== "string") {
         res.status(400);
-        res.body("burger_name must be a string")
+        // res.body("burger_name must be a string")
         res.end();
     }
 
     if (typeof req.body.devoured !== "boolean") {
         res.status(400);
-        res.body("devoured must be a boolean")
+        // res.body("devoured must be a boolean")
         res.end();
     }
 
@@ -46,18 +49,15 @@ app.post("/api/new", (req, res) => {
         burger_name: req.body.burger_name,
         devoured: req.body.devoured,
     }).then((burger) => {
-        // burger here would be the newly created burger
-        res.body(burger)
-        res.end();
+        res.json({ id: burger._id }).end();
     }).catch((error) => {
         res.status(500);
         res.body(error)
         res.end();
     });
-
 });
 
-app.put("/api/update/:burgerid", (req, res) => {
+router.put("/api/burgers/:burgerid", (req, res) => {
     //update a burger and return updated as json
     console.log("burger Data:");
     let burger = req.body
@@ -68,8 +68,7 @@ app.put("/api/update/:burgerid", (req, res) => {
         burger.updateOne(req.params.burgerid, burger)
             .then((updatedBurger) => {
                 // burger here would be the newly created burger
-                res.body(updatedBurger)
-                res.end();
+                res.status(200).end();
             }).catch((error) => {
                 res.status(500);
                 res.body(error)
@@ -83,3 +82,5 @@ app.put("/api/update/:burgerid", (req, res) => {
 
 
 })
+
+module.exports = router;
