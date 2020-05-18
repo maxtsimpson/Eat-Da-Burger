@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Static directory to be served
-app.use(express.static("app/public"));
+app.use(express.static("public"));
 
 // Set Handlebars.
 var exphbs = require("express-handlebars");
@@ -25,16 +25,9 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Import routes and give the server access to them.
-var routes = require("./controllers/catsController.js");
+const routes = require("./controllers/burgers_controller.js");
+app.use(routes)
 
-app.use(routes);
-
-
-const Burger = require("./models/burger")
-const burger = new Burger()
-// Routes
-// =============================================================
-require("./controllers/burgers_controller")(app,burger);
 
 // Starts the server to begin listening
 // =============================================================
