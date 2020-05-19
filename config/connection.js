@@ -20,3 +20,5 @@ var sequelize = new Sequelize("burgers_db", "root", "", {
 // Exports the connection for other files to use
 module.exports = sequelize;
 
+let connection = 
+

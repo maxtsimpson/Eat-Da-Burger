@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const Burger = require("../models/burger")
-const burger = new Burger()
+// const Burger = require("../models/burger")
+// const burger = new Burger()
 // Routes
 // =============================================================
-// const routerToExport = (burger) => {
+module.exports = (burger) => {
     // Get all burgers
     router.get("/", function (req, res) {
 
@@ -16,6 +16,7 @@ const burger = new Burger()
             console.log(burgers)
             res.render("index", {burgers});
         }).catch((error) => {
+            console.log(error)
             res.status(500);
             res.json(error)
             res.end();
@@ -31,26 +32,21 @@ const burger = new Burger()
         console.log(req.body);
 
         if (typeof req.body.burger_name !== "string") {
-            res.status(400);
-            // res.body("burger_name must be a string")
-            res.end();
-        }
-
-        if (typeof req.body.devoured !== "boolean") {
-            res.status(400);
-            // res.body("devoured must be a boolean")
+            res.status(400).json("burger_name must be a string");
+            // res.json("burger_name must be a string")
             res.end();
         }
 
         burger.insertOne({
             burger_name: req.body.burger_name,
-            devoured: req.body.devoured,
+            devoured: 0,
         }).then((burger) => {
-            res.json({ id: burger._id }).end();
+            res.status(200).json({ id: burger._id })
+            // res.status(200)
+            // res.end();
         }).catch((error) => {
-            res.status(500);
-            res.body(error)
-            res.end();
+            console.log(error)
+            res.status(500).json(error);
         });
     });
 
@@ -67,19 +63,19 @@ const burger = new Burger()
                     // burger here would be the newly created burger
                     res.status(200).end();
                 }).catch((error) => {
-                    res.status(500);
-                    res.body(error)
-                    res.end();
+                    console.log(error)
+                    res.status(500).json(error);
                 });
         } else {
             res.status(400);
-            res.body("you must include the id of the burger you want to update")
+            res.json("you must include the id of the burger you want to update")
             res.end();
         }
 
 
     })
 
-// }
+    return router
+}
 
-module.exports = router
+// module.exports = routerToExport()
