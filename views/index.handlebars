@@ -1,5 +1,14 @@
 <aside class="col-4">
-
+  <h3>
+    Make me a new burger!
+  </h3>
+  <form>
+    <div class="form-group">
+      <label for="burgerNameInput">BurgerName</label>
+      <input type="text" class="form-control" id="burgerNameInput">
+    </div>
+    <button type="submit" id="makeBurgerButton" class="btn btn-primary">Cook!</button>
+  </form>
 </aside>
 <main class="col-8">
   <section class="card-columns">
@@ -16,8 +25,3 @@
     {{/each}}
   </section>
 </main>
-<form action="/" method="POST">
-  <textarea type="text" name="task"></textarea>
-
-  <button type="submit">Submit</button>
-</form>

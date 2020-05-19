@@ -24,25 +24,20 @@ $(function() {
       );
     });
   
-    $(".create-form").on("submit", function(event) {
+    $("#makeBurgerButton").on("click", () => {
       // Make sure to preventDefault on a submit event.
       event.preventDefault();
-  
-      const newBurger = {
-        name: $("#ca").val().trim(),
-        sleepy: $("[name=sleepy]:checked").val().trim(),
-        id: id,
-        name: name,
-        devoured: 1
-      };
+      console.log("making the burger")
+      const name = $(this).data("name");
   
       // Send the POST request.
       $.ajax("/api/burgers", {
         type: "POST",
-        data: newBurger
+        data: {burger_name: name}
       }).then(
         function() {
           console.log("created new burger");
+
           // Reload the page to get the updated list
           location.reload();
         }
