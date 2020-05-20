@@ -1,4 +1,4 @@
-<aside class="col-4">
+{{!-- <aside class="col-4">
   <h3>
     Make me a new burger!
   </h3>
@@ -6,22 +6,56 @@
     <div class="form-group">
       <label for="burgerNameInput">BurgerName</label>
       <input type="text" class="form-control" id="burgerNameInput">
+      <button type="submit" id="makeBurgerButton" class="btn btn-primary">Cook!</button>
     </div>
-    <button type="submit" id="makeBurgerButton" class="btn btn-primary">Cook!</button>
   </form>
-</aside>
-<main class="col-8">
-  <section class="card-columns">
-    {{#each burgers}}
-    {{#unless devoured}}
-    <div class="card" style="width: 18rem;">
-      <img src="/assets/img/burger.jpg" class="card-img-top">
-      <div class="card-body">
-        <h5 class="card-title">Name: {{burger_name}}</h5>
-        <button class="eat btn btn-primary" data-name="{{name}}" data-id="{{_id}}">Eat me</button>
+</aside> --}}
+<main class="col-12">
+  <section class="row d-flex justify-content-center">
+    {{!-- <h3 class="col-6">
+      Make me a new burger!
+    </h3> --}}
+      <h3 class="m-2">
+            Make me a new burger!
+      </h3>
+    <form class="m-2">
+      <div class="form-group d-flex flex-row">
+        <label for="burgerNameInput" class="m-2">BurgerName</label>
+        <input type="text" class="form-control m-2" id="burgerNameInput">
+        <button type="submit" id="makeBurgerButton" class="btn btn-primary">Cook!</button>
       </div>
-    </div>
-    {{/unless}}
-    {{/each}}
+    </form>
+  </section>
+  <section class="row">
+    <h2 class="col-6">To be eaten</h2>
+    <h2 class="col-6">Devoured Burgers!</h2>
+  </section>
+  <section class="row">
+    <section class="col-6 card-columns">
+      {{#each burgers}}
+      {{#unless devoured}}
+      <div class="card" style="width: 18rem;">
+        <img src="/assets/img/burger.jpg" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">Name: {{name}}</h5>
+          <button class="eat btn btn-primary m-2" data-name="{{name}}" data-id="{{_id}}">Devour it!</button>
+        </div>
+      </div>
+      {{/unless}}
+      {{/each}}
+    </section>
+    <section class="col-6 card-columns">
+      {{#each burgers}}
+      {{#if devoured}}
+      <div class="card" style="width: 18rem;">
+        <img src="/assets/img/burger.jpg" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">Name: {{name}}</h5>
+          <button class="delete btn btn-primary m-2" data-name="{{name}}" data-id="{{_id}}">Delete it!</button>
+        </div>
+      </div>
+      {{/if}}
+      {{/each}}
+    </section>
   </section>
 </main>

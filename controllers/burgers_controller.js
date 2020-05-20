@@ -23,19 +23,22 @@ module.exports = (burger) => {
     router.post("/api/burgers", (req, res) => {
 
         //add a burger and return added as json
+        console.log(req.body)
 
         if (typeof req.body.burger_name !== "string") {
             res.status(400).json("burger_name must be a string");
+        } else {
+            burger.insertOne({
+                name: req.body.burger_name,
+                devoured: 0,
+            }).then((burger) => {
+                res.status(200).json({ id: burger._id })
+            }).catch((error) => {
+                res.status(500).json(error);
+            });
         }
 
-        burger.insertOne({
-            burger_name: req.body.burger_name,
-            devoured: 0,
-        }).then((burger) => {
-            res.status(200).json({ id: burger._id })
-        }).catch((error) => {
-            res.status(500).json(error);
-        });
+        
     });
 
     router.put("/api/burgers/:burgerid", (req, res) => {
@@ -62,7 +65,22 @@ module.exports = (burger) => {
             res.status(400).json("you must include the id of the burger you want to update")
         }
 
+    })
 
+    router.delete("/api/burgers/:burgerid", (req, res) => {
+        // Add sequelize code to delete a post where the id is equal to req.params.id, 
+        
+        if (req.params.burgerid !== null) {
+            burger.deleteOne(req.params.burgerid)
+                .then(() => {
+                    res.status(200).end();
+                }).catch((error) => {
+                    console.log(error)
+                    res.status(500).json(error);
+                });
+        } else {
+            res.status(400).json("you must include the id of the burger you want to delete")
+        }
     })
 
     return router

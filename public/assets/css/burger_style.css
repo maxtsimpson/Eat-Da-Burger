@@ -28,9 +28,8 @@ html, body{
     padding: 0;
 }
 
-/* .jumbotron{
-    
-} */
+button{
+}
 
 .background-image{
     background-image: url(../img/burger-shopfront.jpg);

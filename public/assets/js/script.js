@@ -10,6 +10,8 @@ $(function() {
         name: name,
         devoured: 1
       };
+
+      console.log(eatenBurger)
   
       // Send the PUT request.
       $.ajax("/api/burgers/" + id, {
@@ -22,10 +24,10 @@ $(function() {
       );
     });
   
-    $("#makeBurgerButton").on("click", () => {
+    $("#makeBurgerButton").on("click", (event) => {
       // Make sure to preventDefault on a submit event.
       event.preventDefault();
-      const name = $(this).data("name");
+      const name = $(event.target).parent().children("#burgerNameInput")[0].value
   
       // Send the POST request.
       $.ajax("/api/burgers", {
@@ -38,7 +40,7 @@ $(function() {
       );
     });
   
-    $(".delete-burger").on("click", function(event) {
+    $(".delete").on("click", function(event) {
       const id = $(this).data("id");
   
       // Send the DELETE request.

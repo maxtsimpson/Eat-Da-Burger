@@ -55,10 +55,23 @@ class Burger {
                 burger
             )
                 .then((result) => {
-                    console.log(result);
                     resolve(result.ops[0])
                 })
-                .catch((error) => { reject(error) });;
+                .catch((error) => { reject(error) })
+        })
+    }
+
+    async deleteOne(id) {
+        const burgerId = new ObjectId(id);
+
+        return new Promise((resolve, reject) => {
+            this.connection.deleteOne(
+                {"_id" : burgerId}
+            )
+                .then((result) => {
+                    resolve()
+                })
+                .catch((error) => { reject(error) })
         })
     }
 }
