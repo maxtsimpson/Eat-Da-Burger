@@ -15,15 +15,5 @@ mongoClient.connect((err) => {
         console.log('connected')
     }
 });
-// })
-// module.exports = mongoClient.db('eat_da_burger').collection('burgers')
 
 module.exports = mongoClient
-
-// mongoClient.connect((err, client) => {
-//     if (err) {
-//         console.log('error')
-//     } else {
-//         console.log('connected')
-//     }
-// });

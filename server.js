@@ -35,9 +35,6 @@ burger.getConnection().then((connection) => {
     const routes = require("./controllers/burgers_controller.js")(burger);
     app.use(routes)
 
-    console.log("===============")
-    console.log(connection)
-    console.log("===============")
     // Starts the server to begin listening
     // =============================================================
     app.listen(PORT, function () {
