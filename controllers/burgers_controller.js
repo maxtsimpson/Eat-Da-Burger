@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-// const Burger = require("../models/burger")
-// const burger = new Burger()
 // Routes
 // =============================================================
 module.exports = (burger) => {
@@ -68,7 +66,7 @@ module.exports = (burger) => {
     })
 
     router.delete("/api/burgers/:burgerid", (req, res) => {
-        // Add sequelize code to delete a post where the id is equal to req.params.id, 
+        // delete a burger where the id is equal to req.params.burgerid, 
         
         if (req.params.burgerid !== null) {
             burger.deleteOne(req.params.burgerid)
